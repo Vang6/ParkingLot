@@ -1,0 +1,15 @@
+.side-bar{
+    position: fixed;
+    width: 280px;
+    height: 100%;
+    z-index: 90;
+    /* display: none; */
+    transform: translateX(0%);
+    transition: all 0.3s ease-out;
+}
+.side-bar.close{
+    transform: translateX(-100%);
+}
+.side-bar .nav-item .nav-link {
+    color: white;
+}

@@ -1,26 +1,17 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+import React from "react";
+import ApplicationProvider from "global_store/application.provider";
+import SideBar from "./components/common/sidebar.component";
+import NavBar from "components/common/navbar.component";
+import AppRouter from "./router";
+const App = () => {
+    const menuClickHandler = () => {
+        console.log("ABD")
+    } 
+    return <ApplicationProvider> <div>
+        <SideBar/>
+         <NavBar onMenuClick={menuClickHandler}/> 
+        <AppRouter/>
     </div>
-  );
+    </ApplicationProvider>
 }
-
 export default App;
