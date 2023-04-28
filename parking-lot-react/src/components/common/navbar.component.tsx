@@ -9,7 +9,7 @@ const NavBar = (props: NavBarParams) => {
                 <div className="container-fluid d-flex flex-wrap">
                     <ul className="nav me-auto">
                         <li className="nav-item">
-                            <a className="nav-link" onClick={() => {context.toggleMenu()}}>Menu</a>
+                            <a className="btn btn-sm btn-outline-secondary" onClick={() => { context.toggleMenu() }}>Menu</a>
                         </li>
                     </ul>
                     <ul className="nav">
@@ -17,7 +17,7 @@ const NavBar = (props: NavBarParams) => {
                             <a className="nav-link">Profile</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link">Sign Out</a>
+                            <a className="btn btn-sm btn-outline-secondary">Sign Out</a>
                         </li>
                     </ul>
                 </div>

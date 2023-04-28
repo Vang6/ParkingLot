@@ -22,6 +22,5 @@ export interface SideBarParams {
     nav?: any[]; 
 }
 export interface NavBarParams {
-    onMenuClick:() => void;
     nav?: any[]; 
 }

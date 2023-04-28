@@ -1,6 +1,7 @@
 import React, { Children } from "react";
 // import ApplicationContext from "global_store/application.context";
 import { Testpage, ParkingZone, StatusDetail } from "../pages";
+import Page from "components/common/page.component";
 import { createRoot } from "react-dom/client";
 import '../style/app-container.css';
 import {
@@ -14,33 +15,31 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <><div>
+      <Page><div>
         Welcome
-      </div></>
+      </div></Page>
     ),
   },
   {
     path: "parkingzone",
     element: (
-      <ParkingZone />
+      <Page>
+        <ParkingZone />
+      </Page>
     ),
   },
   {
     path: "status",
-    element: <StatusDetail />,
+    element: <Page><StatusDetail /> </Page>,
   },
 ], {
   basename: '/'
 });
 
 
-const AppRouter = (children:any) => {
-  // return <ApplicationContext.Consumer>
-  //   {(context: any) => {
-  return <div className="page-container">
-    <RouterProvider router={router} />   
-  </div>
-  //   }}
-  // </ApplicationContext.Consumer>
+const AppRouter = (children: any) => {
+  return <>
+    <RouterProvider router={router} />
+  </>
 }
 export default AppRouter;
