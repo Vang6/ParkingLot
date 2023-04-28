@@ -10,6 +10,7 @@ import {
   Route,
   Link,
 } from "react-router-dom";
+import AdminDashboard from "pages/admin_dashboard";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,14 @@ const router = createBrowserRouter([
   {
     path: "status",
     element: <Page><StatusDetail /> </Page>,
+  },
+  {
+    path: "admin",
+    element: (
+      <Page>
+        <AdminDashboard />
+      </Page>
+    ),
   },
 ], {
   basename: '/'
