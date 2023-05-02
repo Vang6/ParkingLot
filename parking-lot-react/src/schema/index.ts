@@ -7,6 +7,11 @@ export enum CarType {
     SEDAN = 'Sedan',
     MUV = 'MUV'
 }
+export enum FloorMapName {
+    General = 'General',
+    Wide = 'Wide',
+    Small = 'Small'
+}
 export interface CarModel {
     name: string,
     brand: string,
@@ -19,8 +24,13 @@ export interface ApplicationMasterState {
 }
 export interface SideBarParams {
     menuOpen: boolean;
-    nav?: any[]; 
+    nav?: any[];
 }
 export interface NavBarParams {
-    nav?: any[]; 
+    nav?: any[];
+}
+export interface FloorObject {
+    index: number;
+    name: string;
+    layout: FloorMapName;
 }
