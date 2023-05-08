@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import { FloorObject, FloorMapName } from "schema";
 import { collection, getDocs, addDoc } from "firebase/firestore";
-import { db } from "@firebaseConfig/firebase.config";
-import { CollectionName } from "firebase/collection.config";
+import { db } from "./../firebase/firebase.config";
+import { CollectionName } from "../firebase/collection.config";
 const AdminFloor = () => {
     const floorCollectionsRef = collection(db, CollectionName.floor)
     const [editableFloorObject, setEditableFloorObject] = useState<FloorObject>({
         index: 0,
         name: '',
         layout: FloorMapName.General,
-        note: ''
+        note: '',
+        prefix: 'zone'
     })
 
     const editHandler = (e: any) => {
@@ -26,10 +27,14 @@ const AdminFloor = () => {
             case 'floorNote':
                 setEditableFloorObject({ ...editableFloorObject, ...{ note: e.currentTarget.value } })
                 break;
+            case 'floorPrefix':
+                setEditableFloorObject({ ...editableFloorObject, ...{ prefix: e.currentTarget.value } })
+                break;
         }
         console.log(e.currentTarget.name);
     }
     const createFloorAction = async () => {
+        
         await addDoc(floorCollectionsRef, editableFloorObject)
     }
     return <div className="px-3 py-3">
@@ -50,6 +55,10 @@ const AdminFloor = () => {
                     <div className="form-floating mb-3">
                         <input value={editableFloorObject.note} name="floorNote" onChange={editHandler} type="text" className="form-control form-control-sm" placeholder="please enter proper floor note" />
                         <label>Floor Note</label>
+                    </div>
+                    <div className="form-floating mb-3">
+                        <input value={editableFloorObject.prefix} name="floorPrefix" onChange={editHandler} type="text" className="form-control form-control-sm" placeholder="please enter proper floor prefix" />
+                        <label>Floor Prefix</label>
                     </div>
                     <div>
                         <select value={editableFloorObject.layout} name="floorLayout" onChange={editHandler} className="form-control form-control-sm">
