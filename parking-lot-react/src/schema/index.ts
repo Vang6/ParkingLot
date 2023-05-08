@@ -33,4 +33,5 @@ export interface FloorObject {
     index: number;
     name: string;
     layout: FloorMapName;
+    note?: string;
 }
