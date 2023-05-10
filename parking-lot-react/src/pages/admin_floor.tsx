@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { FloorObject, FloorMapName } from "schema";
-import { collection, getDocs, addDoc } from "firebase/firestore";
-import { db } from "./../firebase/firebase.config";
-import { CollectionName } from "../firebase/collection.config";
-import { ErrorResponse } from "@remix-run/router";
+import { collection, getDocs, addDoc, getFirestore } from "firebase/firestore";
+import { db, CollectionName, firebaseApp } from "../firebase";
+import { useCollection } from 'react-firebase-hooks/firestore';
+import { json } from "stream/consumers";
+
 const AdminFloor = () => {
     const floorCollectionsRef = collection(db, CollectionName.floor)
     const [editableFloorObject, setEditableFloorObject] = useState<FloorObject>({
@@ -40,9 +41,14 @@ const AdminFloor = () => {
 
         await addDoc(floorCollectionsRef, editableFloorObject)
     }
+    const [value, loading, error] = useCollection(
+        collection(getFirestore(firebaseApp), CollectionName.floor ),
+        {
+            snapshotListenOptions: { includeMetadataChanges: true },
+        }
+    );
     return <div className="px-3 py-3">
         <h2> Floor Management </h2>
-        {/* <pre>{JSON.stringify(editableFloorObject, undefined, 3)}</pre> */}
         <div className="row">
             <div className="col-md-6">
                 <h4> Create </h4>
@@ -77,7 +83,12 @@ const AdminFloor = () => {
                     </div>
                 </div>
             </div>
-            <div className="col-md-6"> 2 </div>
+            <div className="col-md-6"> 
+            <span>
+                Value is <pre>{JSON.stringify(value?.docs, undefined, 3)}</pre>
+            </span>
+            
+             </div>
         </div>
     </div>
 }
