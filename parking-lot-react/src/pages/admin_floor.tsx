@@ -3,6 +3,7 @@ import { FloorObject, FloorMapName } from "schema";
 import { collection, getDocs, addDoc } from "firebase/firestore";
 import { db } from "./../firebase/firebase.config";
 import { CollectionName } from "../firebase/collection.config";
+import { ErrorResponse } from "@remix-run/router";
 const AdminFloor = () => {
     const floorCollectionsRef = collection(db, CollectionName.floor)
     const [editableFloorObject, setEditableFloorObject] = useState<FloorObject>({
@@ -12,7 +13,9 @@ const AdminFloor = () => {
         note: '',
         prefix: 'zone'
     })
-
+    const isValidFloorObject = (): boolean => {
+        return editableFloorObject.index > -1 && editableFloorObject.name.trim().length > 0 && editableFloorObject.prefix.trim().length > 0
+    }
     const editHandler = (e: any) => {
         switch (e.currentTarget.name) {
             case 'floorNumber':
@@ -34,7 +37,7 @@ const AdminFloor = () => {
         console.log(e.currentTarget.name);
     }
     const createFloorAction = async () => {
-        
+
         await addDoc(floorCollectionsRef, editableFloorObject)
     }
     return <div className="px-3 py-3">
@@ -70,7 +73,7 @@ const AdminFloor = () => {
                     <br />
                     <br />
                     <div>
-                        <button onClick={createFloorAction} className="btn btn-sm btn-success"> Create </button>
+                        <button onClick={createFloorAction} className="btn btn-sm btn-success" disabled={!isValidFloorObject()}> Create </button>
                     </div>
                 </div>
             </div>
