@@ -3,7 +3,6 @@ import { FloorObject, FloorMapName } from "schema";
 import { collection, getDocs, addDoc, getFirestore } from "firebase/firestore";
 import { db, CollectionName, firebaseApp } from "../firebase";
 import { useCollection } from 'react-firebase-hooks/firestore';
-import { json } from "stream/consumers";
 
 const AdminFloor = () => {
     const floorCollectionsRef = collection(db, CollectionName.floor)
@@ -41,12 +40,7 @@ const AdminFloor = () => {
 
         await addDoc(floorCollectionsRef, editableFloorObject)
     }
-    const [value, loading, error] = useCollection(
-        collection(getFirestore(firebaseApp), CollectionName.floor ),
-        {
-            snapshotListenOptions: { includeMetadataChanges: true },
-        }
-    );
+    const [floorDataSet, floorDataSetInProgress, floorDataSetError] = useCollection(floorCollectionsRef);
     return <div className="px-3 py-3">
         <h2> Floor Management </h2>
         <div className="row">
@@ -83,12 +77,40 @@ const AdminFloor = () => {
                     </div>
                 </div>
             </div>
-            <div className="col-md-6"> 
-            <span>
-                Value is <pre>{JSON.stringify(value?.docs, undefined, 3)}</pre>
-            </span>
-            
-             </div>
+            <div className="col-md-6">
+                <table className="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Index</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Layout</th>
+                            <th scope="col">Note</th>
+                            <th scope="col">Prefix</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {floorDataSet?.docs.map((el:any)=> {
+                        const currentData= el.data();
+                        console.log(currentData);
+                        return <tr>
+                            <td>{currentData.id}</td>
+                            <td>{currentData.index}</td>
+                            <td>{currentData.name}</td>
+                            <td>{currentData.layout}</td>
+                            <td>{currentData.note}</td>
+                            <td>{currentData.prefix}</td>
+                            <td>
+                                <button className="btn btn-sm">Remove</button>
+                            </td>
+                        </tr>
+                    
+                    } )}
+                    </tbody>
+                </table>
+
+            </div>
         </div>
     </div>
 }
