@@ -16,6 +16,9 @@ const AdminFloor = () => {
     const isValidFloorObject = (): boolean => {
         return editableFloorObject.index > -1 && editableFloorObject.name.trim().length > 0 && editableFloorObject.prefix.trim().length > 0
     }
+    const removeFloor = (id: string) => {
+        window.confirm("Want to delete "+ id)
+    }
     const editHandler = (e: any) => {
         switch (e.currentTarget.name) {
             case 'floorNumber':
@@ -93,16 +96,16 @@ const AdminFloor = () => {
                     <tbody>
                     {floorDataSet?.docs.map((el:any)=> {
                         const currentData= el.data();
-                        console.log(currentData);
+                        currentData.id=el.id;
                         return <tr>
-                            <td>{currentData.id}</td>
+                            <td></td>
                             <td>{currentData.index}</td>
                             <td>{currentData.name}</td>
                             <td>{currentData.layout}</td>
                             <td>{currentData.note}</td>
                             <td>{currentData.prefix}</td>
                             <td>
-                                <button className="btn btn-sm">Remove</button>
+                                <button className="btn btn-sm" onClick={()=>{removeFloor(currentData.id)}}>Remove</button>
                             </td>
                         </tr>
                     
