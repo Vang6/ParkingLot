@@ -21,9 +21,7 @@ const SideBar = () => {
                     </div>
                     <div className="col">
                         <div style={{ textAlign: 'right', padding: '12px' }}>
-                            <button className="btn btn-sm btn-dark" onClick={() => { context.toggleMenu() }}>
-                                Close
-                            </button>
+                            <button className="btn btn-sm btn-dark" onClick={() => { context.toggleMenu() }}><i className="fa-solid fa-xmark"></i></button>
                         </div>
                     </div>
                 </div>

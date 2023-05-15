@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FloorObject, FloorMapName } from "schema";
-import { collection, getDocs, addDoc, getFirestore } from "firebase/firestore";
+import { collection, getDocs, addDoc, getFirestore, deleteDoc, doc } from "firebase/firestore";
 import { db, CollectionName, firebaseApp } from "../firebase";
 import { useCollection } from 'react-firebase-hooks/firestore';
 
@@ -16,8 +16,16 @@ const AdminFloor = () => {
     const isValidFloorObject = (): boolean => {
         return editableFloorObject.index > -1 && editableFloorObject.name.trim().length > 0 && editableFloorObject.prefix.trim().length > 0
     }
-    const removeFloor = (id: string) => {
-        window.confirm("Want to delete "+ id)
+    const removeFloor = async (documentElement: any) => {
+        if (window.confirm("Want to delete ")) {
+            const d= await doc(db, CollectionName.floor)
+            console.log(d);
+            // deleteDoc(documentElement).then((data)=>{
+            //     console.log(data)
+            // }).catch((error)=>{
+            //     console.log(error)
+            // })
+        }
     }
     const editHandler = (e: any) => {
         switch (e.currentTarget.name) {
@@ -40,7 +48,6 @@ const AdminFloor = () => {
         console.log(e.currentTarget.name);
     }
     const createFloorAction = async () => {
-
         await addDoc(floorCollectionsRef, editableFloorObject)
     }
     const [floorDataSet, floorDataSetInProgress, floorDataSetError] = useCollection(floorCollectionsRef);
@@ -94,22 +101,22 @@ const AdminFloor = () => {
                         </tr>
                     </thead>
                     <tbody>
-                    {floorDataSet?.docs.map((el:any)=> {
-                        const currentData= el.data();
-                        currentData.id=el.id;
-                        return <tr>
-                            <td></td>
-                            <td>{currentData.index}</td>
-                            <td>{currentData.name}</td>
-                            <td>{currentData.layout}</td>
-                            <td>{currentData.note}</td>
-                            <td>{currentData.prefix}</td>
-                            <td>
-                                <button className="btn btn-sm" onClick={()=>{removeFloor(currentData.id)}}>Remove</button>
-                            </td>
-                        </tr>
-                    
-                    } )}
+                        {floorDataSet?.docs.map((el: any) => {
+                            const currentData = el.data();
+                            currentData.id = el.id;
+                            return <tr>
+                                <td></td>
+                                <td>{currentData.index}</td>
+                                <td>{currentData.name}</td>
+                                <td>{currentData.layout}</td>
+                                <td>{currentData.note}</td>
+                                <td>{currentData.prefix}</td>
+                                <td>
+                                    <button className="btn btn-sm" onClick={() => { removeFloor(el) }}><i className="fa-solid fa-trash"></i></button>
+                                </td>
+                            </tr>
+
+                        })}
                     </tbody>
                 </table>
 
