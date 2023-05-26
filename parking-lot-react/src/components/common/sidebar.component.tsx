@@ -8,7 +8,11 @@ const SideBar = () => {
         <li className="nav-item">
             <Link className="nav-link" to="/parkingzone" title="Parking Lot"> Parking Zone </Link>
         </li>
+        <li className="nav-item">
+            <Link className="nav-link" to="/admin/floor_management" title="Floor Management"> Floor Management </Link>
+        </li>
     </ul></>
+    
 
     return <ApplicationContext.Consumer>
         {(context: any) => {
