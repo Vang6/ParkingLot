@@ -1,6 +1,6 @@
 import React from "react";
 import Car from "./car/car";
-const WideLayout = () => { 
+const SmallLayout = () => { 
 
     const generateCars = () => { 
         const arr= [];
@@ -11,9 +11,9 @@ const WideLayout = () => {
     }
     return <div>
         <div style={{width:'550px', height:'400px'}}>
-            Wide
+            Small
         {generateCars()}
         </div>
     </div>
 }
-export default WideLayout;
+export default SmallLayout;

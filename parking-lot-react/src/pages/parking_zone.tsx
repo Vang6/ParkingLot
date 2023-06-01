@@ -3,15 +3,22 @@ import { FloorObject, FloorMapName } from "schema";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { collection, getDocs, addDoc, getFirestore, deleteDoc, doc } from "firebase/firestore";
 import { db, CollectionName, firebaseApp } from "../firebase";
-import { WideLayout } from "components/common/floor_layout";
+import { SmallLayout, WideLayout, GeneralLayout } from "components/common/floor_layout";
 
 const ParkingZone = () => {
-    const [floorLayout, setFloorLayout] = useState<FloorMapName>();
+    const [floorLayout, setFloorLayout] = useState<FloorMapName>(FloorMapName.Small);
     const floorCollectionsRef = collection(db, CollectionName.floor)
     const [floorDataSet, floorDataSetInProgress, floorDataSetError] = useCollection(floorCollectionsRef);
     const floorChangeHandler = (e: any) => {
         console.log(e.target.value);
+        const found= floorDataSet?.docs.find((el: any) => {
+            return el.id === e.target.value;
+        })
+        if (found && found.data()){
+            setFloorLayout(found.data().layout)
+        }
     }
+
     return <div>
         <div className="navbar bg-secondary">
             <div className="container-fluid d-flex flex-wrap">
@@ -30,8 +37,11 @@ const ParkingZone = () => {
             </div>
         </div>
         <div className="layout-container">
-            <WideLayout/>
+            {floorLayout=== FloorMapName.Small && <SmallLayout/>}
 
+            {floorLayout=== FloorMapName.General && <GeneralLayout/>}
+
+            {floorLayout=== FloorMapName.Wide && <WideLayout/>}
         </div>
     </div>
 }
