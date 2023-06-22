@@ -1,6 +1,5 @@
 import React from 'react';
 
-import './car.css';
 const Car = (props: { occupied: boolean; face: string }) => {
   return (
     <div className={`car-wrapper ${props.face && `facing-${props.face}`}`}>
