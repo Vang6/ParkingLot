@@ -1,0 +1,6 @@
+.v-row{
+    width: 54px;
+    min-height: 100px;
+    display: inline-block;
+    /* border: 1px solid #cccc; */
+}

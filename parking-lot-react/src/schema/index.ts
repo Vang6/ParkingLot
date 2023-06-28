@@ -12,6 +12,11 @@ export enum FloorMapName {
     Wide = 'Wide',
     Small = 'Small'
 }
+export enum ParkingRowAlignment{
+    Verical= 'va',
+    Horizontal= 'ha'
+}
+
 export interface CarModel {
     name: string,
     brand: string,
@@ -35,4 +40,8 @@ export interface FloorObject {
     layout: FloorMapName;
     note?: string;
     prefix: string;
+}
+export interface ParkingRowParameters{
+    carIds: string[]|number[];
+    alignment: ParkingRowAlignment;
 }
