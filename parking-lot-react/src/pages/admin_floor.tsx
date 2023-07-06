@@ -5,6 +5,7 @@ import { db, CollectionName, firebaseApp } from "../firebase";
 import { useCollection } from 'react-firebase-hooks/firestore';
 
 const AdminFloor = () => {
+    const firestore = getFirestore(firebaseApp);
     const floorCollectionsRef = collection(db, CollectionName.floor)
     const [editableFloorObject, setEditableFloorObject] = useState<FloorObject>({
         index: 0,
@@ -18,13 +19,8 @@ const AdminFloor = () => {
     }
     const removeFloor = async (documentElement: any) => {
         if (window.confirm("Want to delete ")) {
-            const d= await doc(db, CollectionName.floor)
-            console.log(d);
-            // deleteDoc(documentElement).then((data)=>{
-            //     console.log(data)
-            // }).catch((error)=>{
-            //     console.log(error)
-            // })
+            const documentRef= doc(firestore, CollectionName.floor, documentElement.id);
+            deleteDoc(documentRef);
         }
     }
     const editHandler = (e: any) => {
