@@ -44,7 +44,13 @@ const AdminFloor = () => {
         console.log(e.currentTarget.name);
     }
     const createFloorAction = async () => {
-        await addDoc(floorCollectionsRef, editableFloorObject)
+        const exist= floorDataSet?.docs.some((doc)=> {
+            return doc.data().index=== editableFloorObject.index
+        })
+        if(!exist){
+            await addDoc(floorCollectionsRef, editableFloorObject)
+        }
+        
     }
     const [floorDataSet, floorDataSetInProgress, floorDataSetError] = useCollection(floorCollectionsRef);
     return <div className="px-3 py-3">
