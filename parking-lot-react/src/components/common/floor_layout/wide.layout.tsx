@@ -5,7 +5,7 @@ const WideLayout = () => {
     const generateCars = () => { 
         const arr= [];
         for (let i=0; i<200; i++){
-            arr.push(<Car occupied={false} face="top"/>);
+            arr.push(<Car occupied={false} face="top" positionId="AZSX"/>);
         }
         return arr;
     }

@@ -7,7 +7,7 @@ const ParkingRow = (props: ParkingRowParameters) => {
     return <>
         {props.alignment === ParkingRowAlignment.Verical && <div className="v-row" style={{ height: `${hv * props.carIds.length}px` }}>
             {props.carIds.map(() => {
-                return <Car occupied={true} face={'left'} />
+                return <Car occupied={true} face={'left'} positionId="AQWS" />
             })}
         </div>
 
