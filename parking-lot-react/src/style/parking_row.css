@@ -2,5 +2,5 @@
     width: 54px;
     min-height: 100px;
     display: inline-block;
-    /* border: 1px solid #cccc; */
+    border-right: 1px solid #cccc; 
 }

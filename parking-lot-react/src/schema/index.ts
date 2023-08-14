@@ -44,4 +44,5 @@ export interface FloorObject {
 export interface ParkingRowParameters{
     carIds: string[]|number[];
     alignment: ParkingRowAlignment;
+    occupied: boolean[];
 }
