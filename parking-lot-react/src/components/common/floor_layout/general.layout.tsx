@@ -19,7 +19,7 @@ const GeneralLayout = () => {
         setFloorIds(fIds);
     }, [])
     return <div>
-        <div style={{ width: `${numOfCols*100}px`, height: '400px' }}>
+        <div style={{ width: `${numOfCols*145}px`, height: '400px' }}>
             <div>
                 {floorIds.map((floorIdSets) => {
                     return <ParkingRow occupied={[]} carIds={floorIdSets} alignment={ParkingRowAlignment.Verical} />
